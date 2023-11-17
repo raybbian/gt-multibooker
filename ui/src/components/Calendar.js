@@ -12,10 +12,13 @@ export default function Calendar() {
     const [rooms, setRooms] = useState(null);
 
     function getRooms() {
-        const todayString = dayRef.current.toLocaleDateString('en-CA')
-        const nextWeekString = new Date(dayRef.current.getTime() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
+        // const todayString = dayRef.current.toLocaleDateString('en-CA')
+        const todayString = new Date(dayRef.current.getTime() + 0 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
+        const nextWeekString = new Date(dayRef.current.getTime() + 12 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
+        console.log(todayString, nextWeekString)
         axios.get(`http://127.0.0.1:8000/get-rooms?from_date_string=${todayString}&to_date_string=${nextWeekString}`).then((res) => {
             const out = {}
+            console.log(res.data)
             res.data["slots"].forEach((room) => {
                 const startTime = new Date(room["start"]).toISOString()
                 if(!out[room["itemId"]]) out[room["itemId"]] = {}
@@ -38,8 +41,8 @@ export default function Calendar() {
 
     return (
         <div className={"Calendar w-full h-auto"}>
-            <div className={"Week w-full h-auto grid grid-cols-5 place-items-stretch p-[1px] bg-black gap-[1px]"}>
-                {Array.from(Array(5).keys()).map((idx) =>
+            <div className={"Week w-[200%] h-auto grid grid-cols-12 place-items-stretch p-[1px] bg-black gap-[1px]"}>
+                {Array.from(Array(12).keys()).map((idx) =>
                     <Day key={idx} rooms={rooms} date={new Date(dayRef.current.getTime() + idx * 24 * 60 * 60 * 1000)}/>
                 )}
             </div>

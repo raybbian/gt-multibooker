@@ -14,10 +14,10 @@ export default function Slot({rooms, dateTime}) {
         } else {
             setCondition("unavailable")
         }
-    }, []);
+    }, [rooms]);
 
     return (
-        <div className={`grid place-items-center bg-white h-12 ${colors[condition]}`}>
+        <div className={`grid place-items-center h-12 ${colors[condition]}`}>
             {rooms[158445][dateTime.toISOString()] && dateTime.toLocaleTimeString()}
         </div>
     )

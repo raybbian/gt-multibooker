@@ -40,8 +40,8 @@ export default function Calendar() {
     }
 
     return (
-        <div className={"Calendar w-full h-auto"}>
-            <div className={"Week w-[200%] h-auto grid grid-cols-[repeat(15,_minmax(0,_1fr))] p-[1px] bg-black gap-[1px]"}>
+        <div className={"Calendar w-auto h-auto"}>
+            <div className={"Week w-auto h-auto flex gap-[1px]"}>
                 {Array.from(Array(15).keys()).map((idx) =>
                     <Day key={idx} rooms={rooms} date={new Date(dayRef.current.getTime() + idx * 24 * 60 * 60 * 1000)}/>
                 )}

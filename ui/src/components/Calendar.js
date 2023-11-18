@@ -14,7 +14,7 @@ export default function Calendar() {
     function getRooms() {
         // const todayString = dayRef.current.toLocaleDateString('en-CA')
         const todayString = new Date(dayRef.current.getTime() + 0 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
-        const nextWeekString = new Date(dayRef.current.getTime() + 12 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
+        const nextWeekString = new Date(dayRef.current.getTime() + 15 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
         console.log(todayString, nextWeekString)
         axios.get(`http://127.0.0.1:8000/get-rooms?from_date_string=${todayString}&to_date_string=${nextWeekString}`).then((res) => {
             const out = {}
@@ -41,8 +41,8 @@ export default function Calendar() {
 
     return (
         <div className={"Calendar w-full h-auto"}>
-            <div className={"Week w-[200%] h-auto grid grid-cols-12 place-items-stretch p-[1px] bg-black gap-[1px]"}>
-                {Array.from(Array(12).keys()).map((idx) =>
+            <div className={"Week w-[200%] h-auto grid grid-cols-[repeat(15,_minmax(0,_1fr))] p-[1px] bg-black gap-[1px]"}>
+                {Array.from(Array(15).keys()).map((idx) =>
                     <Day key={idx} rooms={rooms} date={new Date(dayRef.current.getTime() + idx * 24 * 60 * 60 * 1000)}/>
                 )}
             </div>

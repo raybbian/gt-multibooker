@@ -18,7 +18,7 @@ export default function Slot({rooms, dateTime}) {
 
     return (
         <div className={`grid place-items-center h-12 ${colors[condition]}`}>
-            {rooms[158445][dateTime.toISOString()] && dateTime.toLocaleTimeString()}
+            {rooms[158445][dateTime.toISOString()] && dateTime.toLocaleString()}
         </div>
     )
 }

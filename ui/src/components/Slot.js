@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export default function Slot({rooms, dateTime}) {
+export default function Slot({rooms, roomID, dateTime}) {
     const [condition, setCondition] = useState(null)
     const colors = {
         "booked": "bg-yellow-200",
@@ -9,16 +9,16 @@ export default function Slot({rooms, dateTime}) {
     }
 
     useEffect(() => {
-        if (rooms[158445] && rooms[158445][dateTime.toISOString()] && rooms[158445][dateTime.toISOString()]) {
-            setCondition(rooms[158445][dateTime.toISOString()]['booked'] ? "booked" : "available")
+        if (rooms[roomID] && rooms[roomID][dateTime.toISOString()] && rooms[roomID][dateTime.toISOString()]) {
+            setCondition(rooms[roomID][dateTime.toISOString()]['booked'] ? "booked" : "available")
         } else {
             setCondition("unavailable")
         }
-    }, [rooms]);
+    }, [rooms, roomID]);
 
     return (
-        <div className={`grid place-items-center h-12 ${colors[condition]}`}>
-            {rooms[158445][dateTime.toISOString()] && dateTime.toLocaleString()}
+        <div className={`grid place-items-center ${colors[condition]}`}>
+            {rooms[roomID][dateTime.toISOString()] && dateTime.toLocaleTimeString('en-GB').substring(0,5)}
         </div>
     )
 }

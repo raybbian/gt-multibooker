@@ -2,8 +2,7 @@ import json
 import re
 
 import requests
-from datetime import date, timedelta, datetime
-from urllib.parse import quote
+from bs4 import BeautifulSoup
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware

@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {colors, roomStatus} from "../utils/utils";
+import {toast} from "react-toastify";
 
 export default function Slot({idx, rooms, roomID, date, dateTime, dragging, setDragging, currSelectionFrom, setSelectionFrom, currSelectionTo, setSelectionTo, selections}) {
     const [condition, setCondition] = useState(null)
@@ -9,10 +10,15 @@ export default function Slot({idx, rooms, roomID, date, dateTime, dragging, setD
         if (currSelectionFrom <= idx && idx <= currSelectionTo) {
             setCondition("selected")
         }
-    }, [idx, rooms, roomID, currSelectionTo, currSelectionFrom]);
+    }, [idx, rooms, roomID, currSelectionTo, currSelectionFrom, selections]);
 
     function handleMouseDown() {
-        if (condition === "unavailable" || condition === "booked" || dragging) return;
+        if (condition === "unavailable" || condition === "booked") {
+            toast.warning("These rooms are unavailable, or have already been booked!")
+            return;
+        } else if (dragging) {
+            return;
+        }
         setDragging(true)
         setSelectionFrom(idx)
         setSelectionTo(idx)
@@ -40,7 +46,9 @@ export default function Slot({idx, rooms, roomID, date, dateTime, dragging, setD
             onMouseDown={handleMouseDown}
             onMouseEnter={handleMouseEnter}
         >
-            {rooms[roomID][dateTime.toISOString()] && dateTime.toLocaleTimeString('en-GB').substring(0,5)}
+            <p className={"text-xs"}>
+                {rooms[roomID][dateTime.toISOString()] && dateTime.toLocaleTimeString('en-GB').substring(0,5)}
+            </p>
         </div>
     )
 }

@@ -2,15 +2,15 @@ import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import Day from "./Day";
 
-export default function Calendar({startDay, roomID}) {
+export default function Calendar({startDay, roomID, selections, setSelections}) {
     useEffect(() => {
         getRooms();
     }, [])
 
+
     const timeRef = useRef(new Date())
     const dayRef = useRef(new Date(new Date().setHours(0, 0, 0, 0)))
 
-    const [selections, setSelections] = useState({});
     const [rooms, setRooms] = useState(null); //the display for all the rooms
 
     function getRooms() {
@@ -42,7 +42,7 @@ export default function Calendar({startDay, roomID}) {
 
     return (
         <div className={"Calendar w-full h-full overflow-scroll"}>
-            <div className={"Week w-full h-full grid grid-cols-[repeat(7,_minmax(0,_1fr))] gap-2 p-2"}>
+            <div className={"Week w-full h-full grid grid-cols-[repeat(7,_minmax(0,_1fr))] gap-3 p-3"}>
                 {Array.from(Array(7).keys()).map((idx) =>
                     <Day
                         key={startDay + idx}

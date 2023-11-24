@@ -57,7 +57,7 @@ export default function Day({rooms, roomID, date, selections, setSelections}) {
 
     return (
         <div
-            className={"w-full h-full grid grid-cols-4 grid-rows-[repeat(24,_minmax(0,_1fr))] place-items-stretch shadow-xl rounded-lg overflow-hidden"}
+            className={"w-full h-full grid grid-cols-4 grid-rows-[repeat(24,_minmax(0,_1fr))] place-items-stretch border-2 border-black"}
             onMouseLeave={handleMouseUp}
             onMouseUp={handleMouseUp}
         >

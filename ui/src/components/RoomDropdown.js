@@ -6,7 +6,7 @@ export default function RoomDropdown({ options, roomID, setRoomID }) {
     const [showOptions, setShowOptions] = useState(false);
 
     return (
-        <div className={"relative hover:cursor-pointer"}>
+        <div className={"relative hover:cursor-pointer z-10"}>
             <input
                 type="text"
                 className={"text-xl px-2 border-2 border-black hover:cursor-pointer bg-cream"}

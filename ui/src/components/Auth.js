@@ -4,7 +4,7 @@ import {toast} from "react-toastify";
 export default function Auth({toggleAuthPanel, lc_ea_po}) {
     return (
         <div
-            className={"absolute w-full h-full grid place-items-center bg-black bg-opacity-50 z-10"}
+            className={"absolute w-full h-full grid place-items-center bg-black bg-opacity-50 z-20"}
             onClick={() => toggleAuthPanel(false)}
         >
             <div

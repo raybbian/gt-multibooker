@@ -34,7 +34,7 @@ def get_rooms(from_date_string, to_date_string, page_index=0, page_size=18):
 
 
 @app.post('/add-room')
-def add_room(item_id, start_time_urlencoded, duration: int, checksum, from_date, to_date):
+def add_room(item_id, start_time_urlencoded, duration: int, checksum, from_date, to_date, lc_ea_po):
     url = "https://libcal.library.gatech.edu/spaces/availability/booking/add"
     payload = f'add%5Beid%5D={item_id}&add%5Bgid%5D={GID}&add%5Blid%5D={LID}&add%5Bstart%5D={start_time_urlencoded}&add%5Bchecksum%5D={checksum}&lid={LID}&gid={GID}&start={from_date}&end={to_date}'
     headers = {
@@ -51,11 +51,12 @@ def add_room(item_id, start_time_urlencoded, duration: int, checksum, from_date,
     update_end = data['bookings'][0]['options'][duration - 1].replace(' ', '.')
     update_checksum = data['bookings'][0]['optionChecksums'][duration - 1]
     payload = f'bookings%5B0%5D%5Bid%5D={id}&bookings%5B0%5D%5Beid%5D={item_id}&bookings%5B0%5D%5Bgid%5D={GID}&bookings%5B0%5D%5Bseat_id%5D={seat_id}&bookings%5B0%5D%5Blid%5D={LID}&bookings%5B0%5D%5Bstart%5D={start_time_urlencoded}&bookings%5B0%5D%5Bend%5D={prev_end}&bookings%5B0%5D%5Bchecksum%5D={new_checksum}&lid={LID}&gid={GID}&start={from_date}&end={to_date}&update%5Bid%5D={id}&update%5Bchecksum%5D={update_checksum}&update%5Bend%5D={update_end}'
-    final_response = requests.request("POST", url, headers=headers, data=payload)
-    return json.loads(final_response.text)
+    next_response = requests.request("POST", url, headers=headers, data=payload)
+    next_data = json.loads(next_response.text)
+    new_checksum = next_data['bookings'][0]['checksum']
+    return create_cart(item_id, start_time_urlencoded, update_end, new_checksum, lc_ea_po)
 
 
-@app.post('/create-cart')
 def create_cart(item_id, start_time_urlencoded, end_time_urlencoded, checksum, lc_ea_po):
     url = "https://libcal.library.gatech.edu/ajax/space/createcart"
     payload = f'libAuth=true&blowAwayCart=true&returnUrl=%2Freserve%2Fstudy-rooms&bookings%5B0%5D%5Bid%5D=1&bookings%5B0%5D%5Beid%5D={item_id}&bookings%5B0%5D%5Bseat_id%5D=0&bookings%5B0%5D%5Bgid%5D={GID}&bookings%5B0%5D%5Blid%5D={LID}&bookings%5B0%5D%5Bstart%5D={start_time_urlencoded}&bookings%5B0%5D%5Bend%5D={end_time_urlencoded}&bookings%5B0%5D%5Bchecksum%5D={checksum}&method=11'

@@ -52,7 +52,6 @@ export default function Day({rooms, roomID, date, selections, setSelections}) {
         setTotalBookingDuration(sum)
         updSelections[date.toISOString()] = merged;
         setSelections(updSelections)
-        console.log(sum, updSelections)
     }
 
     return (
@@ -76,7 +75,7 @@ export default function Day({rooms, roomID, date, selections, setSelections}) {
                     currSelectionTo={currSelectionTo}
                     setSelectionTo={setSelectionTo}
                     selections={selections}
-                    totalBookingDuration={totalBookingDuration}
+                    setSelections={setSelections}
                 />
             )}
         </div>

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {colors, roomStatus} from "../utils/utils";
 import {toast} from "react-toastify";
 
-export default function Slot({idx, rooms, roomID, date, dateTime, dragging, setDragging, currSelectionFrom, setSelectionFrom, currSelectionTo, setSelectionTo, selections}) {
+export default function Slot({idx, rooms, roomID, date, dateTime, dragging, setDragging, currSelectionFrom, setSelectionFrom, currSelectionTo, setSelectionTo, selections, setSelections}) {
     const [condition, setCondition] = useState(null)
 
     useEffect(() => {
@@ -16,9 +16,17 @@ export default function Slot({idx, rooms, roomID, date, dateTime, dragging, setD
         if (condition === "unavailable" || condition === "booked") {
             toast.warning("These rooms are unavailable, or have already been booked!")
             return;
-        } else if (dragging) {
+        }
+        if (dragging) {
             return;
         }
+        if (condition === "selected") {
+            const updSelections = JSON.parse(JSON.stringify(selections))
+            updSelections[date.toISOString()] = updSelections[date.toISOString()].filter((booking) => booking[0] > idx || booking[1] < idx)
+            setSelections(updSelections)
+            return;
+        }
+
         setDragging(true)
         setSelectionFrom(idx)
         setSelectionTo(idx)

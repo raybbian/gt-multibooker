@@ -4,7 +4,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {useState} from "react";
 
-export default function SideBar({rooms, roomID, selections, setSelections, lc_ea_po, getRooms}) {
+export default function SideBar({rooms, roomID, selections, setSelections, lc_ea_po, getRooms, toggleAuthPanel}) {
     const [bookingName, setBookingName] = useState("Study")
     const [bookingAccess, setBookingAccess] = useState([])
 
@@ -17,6 +17,7 @@ export default function SideBar({rooms, roomID, selections, setSelections, lc_ea
     function submitBookings() {
         if (lc_ea_po.current.length !== 341) {
             toast.error('Cannot submit bookings without auth token!')
+            toggleAuthPanel(true)
             return;
         }
         Object.keys(selections).sort().forEach((date) => {
@@ -55,9 +56,9 @@ export default function SideBar({rooms, roomID, selections, setSelections, lc_ea
     return (
         <div className={"w-full h-full bg-cream border-r-2 border-black flex flex-col justify-between overflow-hidden"}>
             <div className={"w-full h-full flex flex-col gap-2 overflow-y-scroll p-8"}>
-                <p className={"text-2xl font-bold"}>Booking Name:</p>
-                <input className={"w-full bg-cream border-2 border-black p-2 text-xl"} type={"text"} value={bookingName} onChange={(e) => setBookingName(e.value)}/>
-                <p className={"text-2xl font-bold"}>Additional Access:</p>
+                <p className={"text-xl font-bold"}>Booking Name:</p>
+                <input className={"w-full bg-cream border-2 border-black p-2 text-base"} type={"text"} value={bookingName} onChange={(e) => setBookingName(e.value)}/>
+                <p className={"text-xl font-bold"}>Additional Access:</p>
                 <form
                     onSubmit={(e) => {
                         e.preventDefault()
@@ -75,7 +76,7 @@ export default function SideBar({rooms, roomID, selections, setSelections, lc_ea
                         setBookingAccess(updBookingAccess)
                     }}
                 >
-                    <input className={"w-full bg-cream border-2 border-black p-2 mb-2 text-xl"} type={"text"} placeholder={"Input a GTID and press enter."}/>
+                    <input className={"w-full bg-cream border-2 border-black p-2 mb-2 text-base"} type={"text"} placeholder={"Input a GTID and press enter."}/>
                 </form>
                 <div className={"flex flex-col gap-2"}>
                     {bookingAccess.map((gtID) => (
@@ -98,16 +99,16 @@ export default function SideBar({rooms, roomID, selections, setSelections, lc_ea
                         </div>
                     ))}
                 </div>
-                <p className={"text-2xl font-bold"}>Current Bookings:</p>
+                <p className={"text-xl font-bold"}>Current Bookings:</p>
                 <div className={"flex flex-col"}>
                     {Object.keys(selections).sort().map((date) => (
                         <div key={date} className={"flex flex-col gap-2"}>
-                            {selections[date].length > 0 && <p className={"text-xl font-semibold mt-4"}>{new Date(date).toDateString()}</p>}
+                            {selections[date].length > 0 && <p className={"text-base font-semibold mt-4"}>{new Date(date).toDateString()}</p>}
                             {selections[date].map((booking) => (
                                 <div key={`${booking[0]}-${booking[1]}`} className={"flex flex-row justify-between w-full h-full border-2 border-black"}>
                                     <div className={"h-full flex"}>
                                         <div className={"w-2 h-full bg-sakura-pink"}></div>
-                                        <p className={"p-2 ml-2"}>
+                                        <p className={"p-2 ml-2 text-sm"}>
                                             {getDateTimeFromIdx(booking[0], new Date(date)).toLocaleTimeString('en-US', { hour: "2-digit", minute: "2-digit" })} - {getDateTimeFromIdx(booking[1]+1, new Date(date)).toLocaleTimeString('en-US', { hour: "2-digit", minute: "2-digit" })}
                                         </p>
                                     </div>
@@ -125,7 +126,7 @@ export default function SideBar({rooms, roomID, selections, setSelections, lc_ea
                     ))}
                 </div>
             </div>
-            <div className={"flex flex-row justify-end p-8 relative shadow-md"}>
+            <div className={"flex flex-row justify-end p-8 relative"}>
                 <FaArrowRight
                     className={"hover:text-koi-red"}
                     size={48}

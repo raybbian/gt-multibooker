@@ -17,8 +17,6 @@ function App() {
     const lc_ea_po = useRef("");
     const dayRef = useRef(new Date(new Date().setHours(0, 0, 0, 0)))
 
-    const [startDay, setStartDay] = useState(0)
-
     useEffect(() => {
         setSelections({})
     }, [roomID]);
@@ -30,8 +28,8 @@ function App() {
     function getRooms() {
         // const todayString = dayRef.current.toLocaleDateString('en-CA')
         const todayString = new Date(dayRef.current.getTime()).toLocaleDateString('en-CA') //gets date in yyyy-mm-dd format
-        const nextWeekString = new Date(dayRef.current.getTime() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
-        axios.get(`https://api.multibooker.raybb.dev/get-rooms?from_date_string=${todayString}&to_date_string=${nextWeekString}`).then((res) => {
+        const endString = new Date(dayRef.current.getTime() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
+        axios.get(`https://api.multibooker.raybb.dev/get-rooms?from_date_string=${todayString}&to_date_string=${endString}`).then((res) => {
             const out = {}
             res.data["slots"].forEach((room) => {
                 const startTime = new Date(room["start"]).toISOString()
@@ -58,27 +56,24 @@ function App() {
                     setRoomID={setRoomID}
                     setSelections={setSelections}
                     toggleAuthPanel={toggleAuthPanel}
-                    startDay={startDay}
-                    setStartDay={setStartDay}
-                    dayRef={dayRef}
                 />
             </div>
-            <div className={"flex-auto flex flex-row overflow-hidden"}>
-                <div className={"w-1/5 overflow-hidden"}>
+            <div className={"flex-auto flex flex-row flex-nowrap overflow-hidden"}>
+                <div className={"w-[18rem] min-w-[18rem] overflow-hidden grow-0"}>
                     <SideBar
                         rooms={rooms}
                         roomID={roomID}
                         selections={selections}
                         setSelections={setSelections}
                         lc_ea_po={lc_ea_po}
+                        toggleAuthPanel={toggleAuthPanel}
                         getRooms={getRooms}
                     />
                 </div>
-                <div className={"flex-auto"}>
+                <div className={"flex-auto overflow-x-scroll"}>
                     <Calendar
                         dayRef={dayRef}
                         rooms={rooms}
-                        startDay={startDay}
                         roomID={roomID}
                         selections={selections}
                         setSelections={setSelections}

@@ -18,7 +18,7 @@ export default function RoomDropdown({ options, roomID, setRoomID }) {
             />
             {showOptions && (
                 <ul className={"absolute text-xl bg-white w-full border-x-2 last:border-b-2 border-black"}>
-                    {options.map((option, index) => (
+                    {options.sort((a,b) => roomInfo[a].localeCompare(roomInfo[b])).map((option, index) => (
                         <li
                             key={index}
                             onClick={() => {

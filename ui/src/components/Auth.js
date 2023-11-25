@@ -4,7 +4,7 @@ import {toast} from "react-toastify";
 export default function Auth({toggleAuthPanel, lc_ea_po}) {
     return (
         <div
-            className={"absolute w-full h-full grid place-items-center bg-black bg-opacity-50"}
+            className={"absolute w-full h-full grid place-items-center bg-black bg-opacity-50 z-10"}
             onClick={() => toggleAuthPanel(false)}
         >
             <div
@@ -31,7 +31,7 @@ export default function Auth({toggleAuthPanel, lc_ea_po}) {
                 >
                     <input type={"text"} placeholder={"lc_ea_po"} className={"w-full bg-cream border-2 border-black p-2"}/>
                     <div className={"flex flex-row gap-4 justify-between"}>
-                        <small>Not sure what this is? Click here.</small>
+                        <small>Not sure what this is? Click <a href={"https://github.com/raybbian/gt-multibooker"} target={"_blank"} rel={"noreferrer"}>here.</a></small>
                         <button type={"submit"}>
                             <FaArrowRight
                                 className={"hover:text-koi-red"}

@@ -1,3 +1,4 @@
+import {useEffect, useRef} from "react";
 
 export function getDateTimeFromIdx(idx, date) {
     return new Date(date.getTime() + idx * 15 * 60 * 1000)
@@ -31,4 +32,23 @@ export const colors = {
     "unavailable": "bg-cream",
     "available": "bg-light-green",
     "selected": "bg-sakura-pink",
+}
+
+export function useHorizontalScroll() {
+    const elRef = useRef();
+    useEffect(() => {
+        const el = elRef.current;
+        if (el) {
+            const onWheel = e => {
+                if (e.deltaY == 0) return;
+                e.preventDefault();
+                el.scrollTo({
+                    left: el.scrollLeft + e.deltaY,
+                });
+            };
+            el.addEventListener("wheel", onWheel);
+            return () => el.removeEventListener("wheel", onWheel);
+        }
+    }, []);
+    return elRef;
 }

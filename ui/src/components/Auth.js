@@ -19,13 +19,9 @@ export default function Auth({toggleAuthPanel, lc_ea_po}) {
                     onSubmit={(e) => {
                         e.preventDefault()
                         const token = e.target[0].value
-                        if (token.length !== 341) {
-                            toast.error("Invalid Auth Token!")
-                            return;
-                        }
                         lc_ea_po.current = token
                         //TODO: save as cookie
-                        toast.success("Successfully Authenticated!")
+                        toast.success("Token Entered!")
                         toggleAuthPanel(false)
                     }}
                 >

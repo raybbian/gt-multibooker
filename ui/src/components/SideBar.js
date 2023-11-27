@@ -17,7 +17,7 @@ export default function SideBar({rooms, roomID, setRoomID, selections, setSelect
     }
 
     function submitBookings() {
-        if (lc_ea_po.current.length !== 341) {
+        if (lc_ea_po.current.length === 0) {
             toast.error('Cannot submit bookings without auth token!')
             toggleAuthPanel(true)
             return;

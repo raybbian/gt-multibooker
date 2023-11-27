@@ -90,6 +90,7 @@ export default function SideBar({rooms, roomID, setRoomID, selections, setSelect
                             toast.error("Already given access to this GTID!")
                             return;
                         }
+                        e.target[0].value = "";
                         const updBookingAccess = [...bookingAccess]
                         updBookingAccess.push(newID)
                         setBookingAccess(updBookingAccess)

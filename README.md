@@ -10,7 +10,7 @@ functionality ASAP. I'll come back to re-write it someday...
 
 - [x] Intuitive UI for easy room selection
 - [x] Fully functional room booking
-- [ ] Mobile site
+- [x] Mobile site
 
 ## Usage
 
@@ -36,9 +36,9 @@ follows:
 6. Once you see the screen with the option to select the name of your booking,
    STOP!
 7. Look over at your network tab, and find a GET request to
-   "auth?return\_url=/reserve/study-rooms".
+   "auth?return_url=/reserve/study-rooms".
 8. Click on the "Cookies" tab, and copy the value of the response cookie
-   "lc\_ea\_po". This is what you will paste into the application.
+   "lc_ea_po". This is what you will paste into the application.
 
 This token is never and will never be saved anywhere! You can check the code for
 details.

@@ -50,8 +50,10 @@ export default function SideBar({rooms, roomID, setRoomID, selections, setSelect
                 return;
             }
             toast.success(`Successfully added booking on ${new Date(date).toLocaleDateString('en-CA')} from ${getDateTimeFromIdx(start, new Date(date)).toLocaleTimeString('en-US')} to ${getDateTimeFromIdx(end + 1, new Date(date)).toLocaleTimeString('en-US')}`)
+            console.log(res.data)
         }).catch((err) => {
             toast.error('An error has occurred! Refresh and try again.')
+            console.log(err.data)
         })
     }
 
@@ -60,7 +62,13 @@ export default function SideBar({rooms, roomID, setRoomID, selections, setSelect
             <div className={"w-full h-full flex flex-col gap-2 overflow-y-scroll p-8"}>
                 <p className={"text-xl font-bold"}>Booking Details:</p>
                 <RoomDropdown options={Object.keys(roomInfo)} roomID={roomID} setRoomID={setRoomID}/>
-                <input className={"w-full bg-cream border-2 border-black p-2 text-base"} type={"text"} value={bookingName} onChange={(e) => setBookingName(e.value)} placeholder={"Booking name"}/>
+                <input
+                    className={"w-full bg-cream border-2 border-black p-2 text-base"}
+                    type={"text"}
+                    value={bookingName}
+                    onChange={(e) => setBookingName(e.target.value)}
+                    placeholder={"Booking name"}
+                />
                 <form
                     onSubmit={(e) => {
                         e.preventDefault()

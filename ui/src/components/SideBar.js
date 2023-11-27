@@ -1,11 +1,13 @@
 import {getDateTimeFromIdx} from "../utils/utils";
-import {FaArrowRight, FaTrash} from "react-icons/fa6";
+import {FaArrowRight, FaKey, FaTrash} from "react-icons/fa6";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useState} from "react";
+import RoomDropdown from "./RoomDropdown";
+import roomInfo from "../roomInfo/room.definition";
 
-export default function SideBar({rooms, roomID, selections, setSelections, lc_ea_po, getRooms, toggleAuthPanel}) {
-    const [bookingName, setBookingName] = useState("Study")
+export default function SideBar({rooms, roomID, setRoomID, selections, setSelections, lc_ea_po, getRooms, toggleAuthPanel}) {
+    const [bookingName, setBookingName] = useState("")
     const [bookingAccess, setBookingAccess] = useState([])
 
     function removeSelection(idx, date) {
@@ -54,11 +56,11 @@ export default function SideBar({rooms, roomID, selections, setSelections, lc_ea
     }
 
     return (
-        <div className={"w-full h-full bg-cream border-r-2 border-black flex flex-col justify-between overflow-hidden"}>
+        <div className={"w-full h-full bg-cream border-r-2 mobile:border-r-0 mobile:border-t-2 border-black flex flex-col justify-between overflow-hidden"}>
             <div className={"w-full h-full flex flex-col gap-2 overflow-y-scroll p-8"}>
-                <p className={"text-xl font-bold"}>Booking Name:</p>
-                <input className={"w-full bg-cream border-2 border-black p-2 text-base"} type={"text"} value={bookingName} onChange={(e) => setBookingName(e.value)}/>
-                <p className={"text-xl font-bold"}>Additional Access:</p>
+                <p className={"text-xl font-bold"}>Booking Details:</p>
+                <RoomDropdown options={Object.keys(roomInfo)} roomID={roomID} setRoomID={setRoomID}/>
+                <input className={"w-full bg-cream border-2 border-black p-2 text-base"} type={"text"} value={bookingName} onChange={(e) => setBookingName(e.value)} placeholder={"Booking name"}/>
                 <form
                     onSubmit={(e) => {
                         e.preventDefault()
@@ -76,9 +78,9 @@ export default function SideBar({rooms, roomID, selections, setSelections, lc_ea
                         setBookingAccess(updBookingAccess)
                     }}
                 >
-                    <input className={"w-full bg-cream border-2 border-black p-2 mb-2 text-base"} type={"text"} placeholder={"Input a GTID and press enter."}/>
+                    <input className={"w-full bg-cream border-2 border-black p-2 text-base"} type={"text"} placeholder={"Additional Access"}/>
                 </form>
-                <div className={"flex flex-col gap-2"}>
+                <div className={"w-full h-auto flex flex-col gap-2"}>
                     {bookingAccess.map((gtID) => (
                         <div key={gtID} className={"flex flex-row justify-between w-full h-full border-2 border-black"}>
                             <div className={"h-full flex"}>
@@ -99,7 +101,21 @@ export default function SideBar({rooms, roomID, selections, setSelections, lc_ea
                         </div>
                     ))}
                 </div>
-                <p className={"text-xl font-bold"}>Current Bookings:</p>
+                <div className={"flex flex-row justify-between items-center"}>
+                    <p className={"text-xl font-bold"}>Bookings:</p>
+                    <div className={"flex flex-row gap-4"}>
+                        <FaKey
+                            size={18}
+                            className={"hover:text-koi-red"}
+                            onClick={() => toggleAuthPanel(true)}
+                        />
+                        <FaTrash
+                            size={18}
+                            className={"hover:text-koi-red"}
+                            onClick={() => setSelections({})}
+                        />
+                    </div>
+                </div>
                 <div className={"flex flex-col"}>
                     {Object.keys(selections).sort().map((date) => (
                         <div key={date} className={"flex flex-col gap-2"}>
@@ -126,7 +142,7 @@ export default function SideBar({rooms, roomID, selections, setSelections, lc_ea
                     ))}
                 </div>
             </div>
-            <div className={"flex flex-row justify-end p-8 relative"}>
+            <div className={"flex flex-row justify-end pb-8 pr-8 relative"}>
                 <FaArrowRight
                     className={"hover:text-koi-red"}
                     size={48}

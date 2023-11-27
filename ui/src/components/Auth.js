@@ -8,7 +8,7 @@ export default function Auth({toggleAuthPanel, lc_ea_po}) {
             onClick={() => toggleAuthPanel(false)}
         >
             <div
-                className={"w-[36rem] h-54 bg-cream rounded-lg shadow-md p-8 flex flex-col gap-4"}
+                className={"w-[36rem] max-w-[90dvw] h-54 bg-cream rounded-lg shadow-md p-8 flex flex-col gap-4"}
                 onClick={(e) => e.stopPropagation()}
             >
                 <p className={"font-bold text-2xl"}>

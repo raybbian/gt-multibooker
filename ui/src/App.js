@@ -1,9 +1,8 @@
 import './App.css';
 import Calendar from "./components/Calendar";
-import ControlBar from "./components/ControlBar";
 import SideBar from "./components/SideBar";
 import {useEffect, useRef, useState} from "react";
-import {ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import Auth from "./components/Auth";
 import axios from "axios";
 
@@ -40,29 +39,23 @@ function App() {
             })
             setRooms(out)
         }).catch((err) => {
+            toast.error("Something went wrong while getting rooms! Refresh the page.")
             console.log(err);
         })
     }
 
     return (
-        <div className={"w-[100dvw] h-[100dvh] flex flex-col bg-sage-green relative overflow-hidden"}>
+        <div className={"w-[100dvw] h-[100dvh] bg-sage-green relative overflow-hidden"}>
             {showAuthPanel && <Auth
                 toggleAuthPanel={toggleAuthPanel}
                 lc_ea_po={lc_ea_po}
             />}
-            <div className={"h-16"}>
-                <ControlBar
-                    roomID={roomID}
-                    setRoomID={setRoomID}
-                    setSelections={setSelections}
-                    toggleAuthPanel={toggleAuthPanel}
-                />
-            </div>
-            <div className={"flex-auto flex flex-row flex-nowrap overflow-hidden"}>
-                <div className={"w-[18rem] min-w-[18rem] overflow-hidden grow-0"}>
+            <div className={"flex-auto flex flex-row mobile:flex-col-reverse flex-nowrap overflow-hidden w-full h-full"}>
+                <div className={"w-[18rem] min-w-[18rem] mobile:w-full mobile:h-1/2 overflow-hidden flex-none"}>
                     <SideBar
                         rooms={rooms}
                         roomID={roomID}
+                        setRoomID={setRoomID}
                         selections={selections}
                         setSelections={setSelections}
                         lc_ea_po={lc_ea_po}

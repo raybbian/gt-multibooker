@@ -6,10 +6,10 @@ export default function RoomDropdown({ options, roomID, setRoomID }) {
     const [showOptions, setShowOptions] = useState(false);
 
     return (
-        <div className={"relative hover:cursor-pointer z-10"}>
+        <div className={"relative hover:cursor-pointer z-10 w-full"}>
             <input
                 type="text"
-                className={"text-xl px-2 border-2 border-black hover:cursor-pointer bg-cream"}
+                className={"text-base p-2 border-2 border-black hover:cursor-pointer bg-cream w-full"}
                 value={roomInfo[search]}
                 onChange={(e) => setSearch(e.target.value)}
                 onFocus={() => setShowOptions(true)}
@@ -17,9 +17,9 @@ export default function RoomDropdown({ options, roomID, setRoomID }) {
                 readOnly={true}
             />
             {showOptions && (
-                <ul className={"absolute text-xl bg-white w-full border-x-2 last:border-b-2 border-black"}>
+                <div className={"absolute text-base bg-white w-full h-48 overflow-y-scroll border-x-2 last:border-b-2 border-black flex flex-col"}>
                     {options.sort((a,b) => roomInfo[a].localeCompare(roomInfo[b])).map((option, index) => (
-                        <li
+                        <div
                             key={index}
                             onClick={() => {
                                 setSearch(parseInt(option, 10))
@@ -28,9 +28,9 @@ export default function RoomDropdown({ options, roomID, setRoomID }) {
                             className={`hover:bg-sakura-pink px-2 ${option === search ? "bg-sakura-pink" : ""}bg-cream`}
                         >
                             {roomInfo[option]}
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                </div>
             )}
         </div>
     );

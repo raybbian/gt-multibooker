@@ -7,14 +7,14 @@ export default function Calendar({dayRef, rooms, roomID, selections, setSelectio
 
     return (
         <div
-            className={"Calendar w-auto h-full overflow-x-scroll relative grid place-items-center"}
+            className={"Calendar w-auto h-full overflow-scroll relative grid place-items-center"}
             ref={scrollRef}
         >
             <div className={`absolute w-full h-full grid place-items-center ${rooms ? "hidden": "visible"}`}>
                 <FaRotateRight size={64} className={"animate-spin"}/>
             </div>
             {rooms &&
-                <div className={"Week h-full w-auto flex flex-row flex-nowrap gap-3 p-3"}>
+                <div className={"Week h-full mobile:h-[100dvh] w-auto flex flex-row flex-nowrap gap-3 p-3"}>
                     {Array.from(Array(14).keys()).map((idx) =>
                         <div key={idx} className={"h-full w-[12rem] flex-none"}>
                             <Day

@@ -10,6 +10,9 @@ module.exports = {
         'light-green': '#9db445',
         'teal': '#376f5c',
         'sakura-pink': '#eb80a8'
+      },
+      screens: {
+        'mobile': {'max': '575px'},
       }
     },
   },

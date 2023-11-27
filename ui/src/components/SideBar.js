@@ -3,7 +3,6 @@ import {FaArrowRight, FaKey, FaTrash} from "react-icons/fa6";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useState} from "react";
-import RoomDropdown from "./RoomDropdown";
 import roomInfo from "../roomInfo/room.definition";
 
 export default function SideBar({rooms, roomID, setRoomID, selections, setSelections, lc_ea_po, getRooms, toggleAuthPanel}) {
@@ -61,7 +60,17 @@ export default function SideBar({rooms, roomID, setRoomID, selections, setSelect
         <div className={"w-full h-full bg-cream border-r-2 mobile:border-r-0 mobile:border-t-2 border-black flex flex-col justify-between overflow-hidden"}>
             <div className={"w-full h-full flex flex-col gap-2 overflow-y-scroll p-8"}>
                 <p className={"text-xl font-bold"}>Booking Details:</p>
-                <RoomDropdown options={Object.keys(roomInfo)} roomID={roomID} setRoomID={setRoomID}/>
+                <select
+                    className={"text-base p-2 border-2 border-black hover:cursor-pointer bg-cream w-full"}
+                    value={roomID}
+                    onChange={(e) => setRoomID(e.target.value)}
+                >
+                    {Object.keys(roomInfo).sort((a,b) => roomInfo[a].localeCompare(roomInfo[b])).map((option, index) => (
+                        <option key={index} value={option}>
+                            {roomInfo[option]}
+                        </option>
+                    ))}
+                </select>
                 <input
                     className={"w-full bg-cream border-2 border-black p-2 text-base"}
                     type={"text"}

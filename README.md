@@ -1,7 +1,7 @@
 # GT Multibooker
 
 A simple front-end and proxy that allows users to book multiple GT library rooms
-at once!
+at once! Can be found [here.](https://multibooker.raybb.dev)
 
 Disclaimer: This code was written very quickly and hacked together to provide
 functionality ASAP. I'll come back to re-write it someday...

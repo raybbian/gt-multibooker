@@ -14,7 +14,7 @@ export default function Calendar({dayRef, rooms, roomID, selections, setSelectio
                 <FaRotateRight size={64} className={"animate-spin"}/>
             </div>
             {rooms &&
-                <div className={"Week h-full mobile:h-[100dvh] w-auto flex flex-row flex-nowrap gap-3 p-3"}>
+                <div className={"Week h-full mobile:h-[100dvh] w-auto flex flex-row flex-nowrap gap-3 p-6"}>
                     {Array.from(Array(15).keys()).map((idx) =>
                         <div key={idx} className={"h-full w-[12rem] flex-none"}>
                             <Day

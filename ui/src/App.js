@@ -27,7 +27,7 @@ function App() {
     function getRooms() {
         // const todayString = dayRef.current.toLocaleDateString('en-CA')
         const todayString = new Date(dayRef.current.getTime()).toLocaleDateString('en-CA') //gets date in yyyy-mm-dd format
-        const endString = new Date(dayRef.current.getTime() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
+        const endString = new Date(dayRef.current.getTime() + 15 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
         axios.get(`https://api.multibooker.raybb.dev/get-rooms?from_date_string=${todayString}&to_date_string=${endString}`).then((res) => {
             const out = {}
             res.data["slots"].forEach((room) => {

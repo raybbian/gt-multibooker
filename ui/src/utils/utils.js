@@ -28,9 +28,9 @@ export function roomStatus(roomInfo, roomID, idx, date, selections) {
 }
 
 export const colors = {
-    "booked": "bg-teal",
+    "booked": "bg-[#82a599]",
     "unavailable": "bg-cream",
-    "available": "bg-light-green",
+    "available": "bg-[#c2d08b]",
     "selected": "bg-sakura-pink",
 }
 

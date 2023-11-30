@@ -51,7 +51,7 @@ function App() {
                 lc_ea_po={lc_ea_po}
             />}
             <div className={"flex-auto flex flex-row mobile:flex-col-reverse flex-nowrap overflow-hidden w-full h-full"}>
-                <div className={"w-[18rem] min-w-[18rem] mobile:w-full mobile:h-1/2 overflow-hidden flex-none"}>
+                <div className={"w-[22rem] min-w-[22rem] mobile:w-full mobile:h-1/2 overflow-hidden flex-none"}>
                     <SideBar
                         rooms={rooms}
                         roomID={roomID}

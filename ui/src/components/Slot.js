@@ -55,7 +55,7 @@ export default function Slot({idx, rooms, roomID, date, dateTime, dragging, setD
             onMouseEnter={handleMouseEnter}
         >
             <p className={"text-xs"}>
-                {rooms[roomID][dateTime.toISOString()] && dateTime.toLocaleTimeString('en-GB').substring(0,5)}
+                {rooms[roomID][dateTime.toISOString()] && dateTime.toLocaleTimeString('en-US', {'hour': 'numeric', 'minute': 'numeric', 'seconds': 'none'})}
             </p>
         </div>
     )

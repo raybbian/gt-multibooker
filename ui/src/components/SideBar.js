@@ -58,47 +58,51 @@ export default function SideBar({rooms, roomID, setRoomID, selections, setSelect
 
     return (
         <div className={"w-full h-full bg-cream border-r-2 mobile:border-r-0 mobile:border-t-2 border-black flex flex-col justify-between overflow-hidden"}>
-            <div className={"w-full h-full flex flex-col gap-2 overflow-y-scroll p-8"}>
+            <div className={"w-full h-full flex flex-col gap-4 overflow-y-scroll p-8"}>
+                <div className={"flex flex-col gap-2"}>
+                    <p className={"text-4xl font-bold"}>GT Multibooker</p>
+                    <p className={"text-base"}>An app to book multiple library rooms at once!</p>
+                </div>
                 <p className={"text-xl font-bold"}>Booking Details:</p>
-                <select
-                    className={"text-base p-2 border-2 border-black hover:cursor-pointer bg-cream w-full"}
-                    value={roomID}
-                    onChange={(e) => setRoomID(e.target.value)}
-                >
-                    {Object.keys(roomInfo).sort((a,b) => roomInfo[a].localeCompare(roomInfo[b])).map((option, index) => (
-                        <option key={index} value={option}>
-                            {roomInfo[option]}
-                        </option>
-                    ))}
-                </select>
-                <input
-                    className={"w-full bg-cream border-2 border-black p-2 text-base"}
-                    type={"text"}
-                    value={bookingName}
-                    onChange={(e) => setBookingName(e.target.value)}
-                    placeholder={"Booking name"}
-                />
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault()
-                        const newID = e.target[0].value
-                        if (newID.length !== 9) {
-                            toast.error("Invalid GTID!")
-                            return;
-                        }
-                        if (bookingAccess.includes(newID)) {
-                            toast.error("Already given access to this GTID!")
-                            return;
-                        }
-                        e.target[0].value = "";
-                        const updBookingAccess = [...bookingAccess]
-                        updBookingAccess.push(newID)
-                        setBookingAccess(updBookingAccess)
-                    }}
-                >
-                    <input className={"w-full bg-cream border-2 border-black p-2 text-base"} type={"text"} placeholder={"Additional Access"}/>
-                </form>
-                <div className={"w-full h-auto flex flex-col gap-2"}>
+                <div className={"flex flex-col gap-2"}>
+                    <select
+                        className={"text-base p-2 border-2 border-black hover:cursor-pointer bg-cream w-full"}
+                        value={roomID}
+                        onChange={(e) => setRoomID(e.target.value)}
+                    >
+                        {Object.keys(roomInfo).sort((a,b) => roomInfo[a].localeCompare(roomInfo[b])).map((option, index) => (
+                            <option key={index} value={option}>
+                                {roomInfo[option]}
+                            </option>
+                        ))}
+                    </select>
+                    <input
+                        className={"w-full bg-cream border-2 border-black p-2 text-base"}
+                        type={"text"}
+                        value={bookingName}
+                        onChange={(e) => setBookingName(e.target.value)}
+                        placeholder={"Booking name"}
+                    />
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault()
+                            const newID = e.target[0].value
+                            if (newID.length !== 9) {
+                                toast.error("Invalid GTID!")
+                                return;
+                            }
+                            if (bookingAccess.includes(newID)) {
+                                toast.error("Already given access to this GTID!")
+                                return;
+                            }
+                            e.target[0].value = "";
+                            const updBookingAccess = [...bookingAccess]
+                            updBookingAccess.push(newID)
+                            setBookingAccess(updBookingAccess)
+                        }}
+                    >
+                        <input className={"w-full bg-cream border-2 border-black p-2 text-base"} type={"text"} placeholder={"Additional Access"}/>
+                    </form>
                     {bookingAccess.map((gtID) => (
                         <div key={gtID} className={"flex flex-row justify-between w-full h-full border-2 border-black"}>
                             <div className={"h-full flex"}>
@@ -137,7 +141,7 @@ export default function SideBar({rooms, roomID, setRoomID, selections, setSelect
                 <div className={"flex flex-col"}>
                     {Object.keys(selections).sort().map((date) => (
                         <div key={date} className={"flex flex-col gap-2"}>
-                            {selections[date].length > 0 && <p className={"text-base font-semibold mt-4"}>{new Date(date).toDateString()}</p>}
+                            {selections[date].length > 0 && <p className={"text-base font-semibold mt-2"}>{new Date(date).toDateString()}</p>}
                             {selections[date].map((booking) => (
                                 <div key={`${booking[0]}-${booking[1]}`} className={"flex flex-row justify-between w-full h-full border-2 border-black"}>
                                     <div className={"h-full flex"}>

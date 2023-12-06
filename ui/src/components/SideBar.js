@@ -62,7 +62,7 @@ export default function SideBar({
                 toast.error('You cannot book more than 4 hours on a given day!');
                 return;
             }
-            if (res.data.include("not accepted")) {
+            if (res.data.includes("not accepted")) {
                 toast.error("Something went wrong on Georgia Tech's end - wait a bit and try again.");
                 return;
             }

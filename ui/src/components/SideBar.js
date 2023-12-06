@@ -62,6 +62,10 @@ export default function SideBar({
                 toast.error('You cannot book more than 4 hours on a given day!');
                 return;
             }
+            if (res.data.include("not accepted")) {
+                toast.error("Something went wrong on Georgia Tech's end - wait a bit and try again.");
+                return;
+            }
             toast.success(`Successfully added booking on ${new Date(date).toLocaleDateString('en-CA')} from ${getDateTimeFromIdx(start, new Date(date)).toLocaleTimeString('en-US')} to ${getDateTimeFromIdx(end + 1, new Date(date)).toLocaleTimeString('en-US')}`)
         }).catch((err) => {
             toast.error('An error has occurred! Refresh and try again.')

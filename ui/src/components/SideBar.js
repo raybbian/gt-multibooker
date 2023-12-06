@@ -30,6 +30,10 @@ export default function SideBar({
             toggleAuthPanel(true)
             return;
         }
+        if (bookingName.length === 0) {
+            toast.error("Must include booking name!")
+            return;
+        }
         Object.keys(selections).sort().forEach((date) => {
             selections[date].forEach((booking) => {
                 if (booking[1] - booking[0] + 1 > 8) {
@@ -43,10 +47,6 @@ export default function SideBar({
     }
 
     function bookRoom(date, start, end) {
-        if (bookingName.length === 0) {
-            toast.error("Must include booking name!")
-            return;
-        }
         const additionalAccess = bookingAccess.length === 0 ? "No" : "Yes"
         const gtidList = bookingAccess.join(", ")
         //add the booking to cart from the API

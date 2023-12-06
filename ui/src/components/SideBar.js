@@ -53,12 +53,12 @@ export default function SideBar({
         const startDateString = new Date(date).toLocaleDateString('en-CA')
         const endDateString = new Date(new Date(date).getTime() + 1 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')
         axios.post(`https://api.multibooker.raybb.dev/add-room?item_id=${roomID}&start_time_urlencoded=${startTimeString}&duration=${end - start + 1}&checksum=${startChecksum}&from_date=${startDateString}&to_date=${endDateString}&lc_ea_po=${lc_ea_po.current}&name=${bookingName}&additional_access=${additionalAccess}&gtid_list=${gtidList}`).then((res) => {
+            console.log(res.data)
             if (res.data.substring(0, 3) === "<p>") {
                 toast.error('You cannot book more than 4 hours on a given day!')
                 return;
             }
             toast.success(`Successfully added booking on ${new Date(date).toLocaleDateString('en-CA')} from ${getDateTimeFromIdx(start, new Date(date)).toLocaleTimeString('en-US')} to ${getDateTimeFromIdx(end + 1, new Date(date)).toLocaleTimeString('en-US')}`)
-            console.log(res.data)
         }).catch((err) => {
             toast.error('An error has occurred! Refresh and try again.')
             console.log(err.data)

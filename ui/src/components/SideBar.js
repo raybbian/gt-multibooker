@@ -43,6 +43,10 @@ export default function SideBar({
     }
 
     function bookRoom(date, start, end) {
+        if (bookingName.length === 0) {
+            toast.error("Must include booking name!")
+            return;
+        }
         const additionalAccess = bookingAccess.length === 0 ? "No" : "Yes"
         const gtidList = bookingAccess.join(", ")
         //add the booking to cart from the API
